@@ -1,0 +1,182 @@
+﻿@model KT0720HoXuanHung_64130773.Models.SINHVIEN
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Wrapper Chính -->
+<div class="container-fluid px-5 mt-5">
+    <!-- Tiêu Đề -->
+    <div class="text-center mb-5">
+        <h2 class="display-4 text-white font-weight-bold mb-4">Chi Tiết Thông Tin Sinh Viên</h2>
+    </div>
+
+    <!-- Card chi tiết Sinh Viên -->
+    <div class="card shadow-lg rounded-3 overflow-hidden" style="background: rgba(255, 255, 255, 0.9);">
+        <div class="card-body p-5">
+
+            <div class="row align-items-center">
+                <!-- Phần ảnh sinh viên -->
+                <div class="col-lg-4 text-center mb-4 mb-lg-0">
+                    @if (!string.IsNullOrEmpty(Model.AnhSV))
+                    {
+                        <img src="@Url.Content(Model.AnhSV)"
+                             alt="Ảnh Sinh Viên"
+                             class="img-fluid rounded-circle shadow-sm border"
+                             style="max-width: 200px;">
+                    }
+                    else
+                    {
+                        <img src="~/images/anh.png"
+                             alt="Ảnh mặc định"
+                             class="img-fluid rounded-circle shadow-sm border"
+                             style="max-width: 200px;">
+                        <span class="h5 text-muted d-block mt-2">Chưa có ảnh</span>
+                    }
+                    <h5 class="mt-3 text-secondary fw-semibold">@Model.HoSV @Model.TenSV</h5>
+                </div>
+
+
+                <!-- Phần thông tin sinh viên -->
+                <div class="col-lg-8">
+                    <dl class="row">
+                        <dt class="col-sm-4 font-weight-bold">Mã Sinh Viên</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.MaSV)</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Họ Sinh Viên</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.HoSV)</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Tên Sinh Viên</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.TenSV)</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Ngày Sinh</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.NgaySinh)</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Giới Tính</dt>
+                        <dd class="col-sm-8 text-muted">@((Model.GioiTinh) ? "Nam" : "Nữ")</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Địa Chỉ</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.DiaChi)</dd>
+
+                        <dt class="col-sm-4 font-weight-bold">Lớp</dt>
+                        <dd class="col-sm-8 text-muted">@Html.DisplayFor(model => model.LOP.TenLop)</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Các nút điều hướng -->
+    <div class="text-center mt-5">
+        <a href="@Url.Action("TimKiem_64130773")" class="btn btn-warning btn-lg px-5 py-3 rounded-pill shadow-lg">Quay Lại Tìm Kiếm</a>
+        <a href="@Url.Action("Index")" class="btn btn-secondary btn-lg px-5 py-3 rounded-pill shadow-lg ml-3">Quay Lại Danh Sách</a>
+    </div>
+
+</div>
+
+<style>
+    body {
+        background: linear-gradient(135deg, #1e3c72, #2a5298); 
+        background-attachment: fixed;
+        font-family: 'Roboto', sans-serif;
+        color: #f8f9fa;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* Wrapper chính */
+    .container-fluid {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    /* Card chi tiết sinh viên */
+    .card {
+        background: rgba(255, 255, 255, 0.85);
+        border-radius: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        padding: 3rem;
+    }
+
+    .card-body {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    /* Thiết kế ảnh sinh viên */
+    .img-fluid {
+        width: 180px;
+        height: 180px;
+        object-fit: cover;
+        border: 5px solid #fff;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Tiêu đề lớn với font đẹp */
+    h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Định dạng thẻ danh sách thông tin sinh viên */
+    dl {
+        font-size: 1.25rem;
+        line-height: 1.8;
+    }
+
+    dt {
+        color: #333;
+        font-weight: 600;
+    }
+
+    dd {
+        color: #555;
+        font-weight: 400;
+    }
+
+    /* Nút điều hướng */
+    .btn {
+        border-radius: 30px;
+        padding: 18px 40px;
+        font-size: 18px;
+        font-weight: 700;
+        text-transform: uppercase;
+        transition: all 0.3s ease;
+    }
+
+    .btn-warning {
+        background-color: #ff6f61;
+        border: none;
+    }
+
+        .btn-warning:hover {
+            background-color: #f57b51;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+            transform: translateY(-5px);
+        }
+
+    .btn-secondary {
+        background-color: #495057;
+        border: none;
+    }
+
+        .btn-secondary:hover {
+            background-color: #343a40;
+            box-shadow: 0 5px 15px rgba(73, 80, 87, 0.4);
+            transform: translateY(-5px);
+        }
+
+    /* Nâng cao thêm hiệu ứng hover */
+    .btn:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Đảm bảo không gian giữa các phần tử */
+    .text-center {
+        margin-bottom: 2rem;
+    }
+</style>

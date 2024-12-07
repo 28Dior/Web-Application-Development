@@ -1,0 +1,107 @@
+﻿@model IEnumerable<KT0720HoXuanHung_64130773.Models.SINHVIEN>
+@{
+    ViewBag.Title = "Tìm Kiếm Sinh Viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center text-primary mb-4">Tìm Kiếm Sinh Viên</h2>
+    @using (Html.BeginForm("TimKiem_64130773", "SinhVien_64130773", FormMethod.Get, new { @class = "card shadow p-3 mb-5 bg-body-tertiary rounded" }))
+    {
+        @Html.AntiForgeryToken()
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+    <div class="container">
+        <div class="row justify-content-center mb-3">
+            <label for="maSV" class="col-sm-2 col-form-label fw-bold text-center">Mã sinh viên:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="maSV" id="maSV" placeholder="Nhập mã sinh viên" />
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <label for="hoTen" class="col-sm-2 col-form-label fw-bold text-center">Họ và tên:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" name="hoTen" id="hoTen" placeholder="Nhập họ và tên" />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="text-end">
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-search"></i> Tìm Kiếm
+        </button>
+    </div>
+</div>
+    }
+</div>
+
+<div class="table-responsive mt-4">
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-primary text-center">
+            <tr>
+                <th>STT</th>
+                <th>@Html.DisplayNameFor(model => model.MaSV)</th>
+                <th>@Html.DisplayNameFor(model => model.HoSV)</th>
+                <th>@Html.DisplayNameFor(model => model.TenSV)</th>
+                <th>@Html.DisplayNameFor(model => model.NgaySinh)</th>
+                <th>@Html.DisplayNameFor(model => model.GioiTinh)</th>
+                <th>@Html.DisplayNameFor(model => model.AnhSV)</th>
+                <th>@Html.DisplayNameFor(model => model.DiaChi)</th>
+                <th>@Html.DisplayNameFor(model => model.LOP.TenLop)</th>
+                <th>Chức Năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var i = (ViewBag.CurrentPage - 1) * 5; // Tính toán chỉ số bắt đầu
+                var j = 0; // Biến đếm số thứ tự
+            }
+            @foreach (var item in Model)
+            {
+                j++;
+                <tr>
+                    <td class="text-center">@(i + j)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MaSV)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HoSV)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TenSV)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                    <td>@(item.GioiTinh ? "Nam" : "Nữ")</td>
+                    <td>
+                        <img src="~/IMG/@item.AnhSV" alt="Ảnh SV" class="img-thumbnail" style="max-width: 50px;" />
+                    </td>
+                    <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LOP.TenLop)</td>
+                    <td>
+                        @Html.ActionLink("Xem", "Details", new { id = item.MaSV }, new { @class = "btn btn-info btn-sm" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="text-center mt-4">
+    @if (ViewBag.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination justify-content-center">
+                @for (int page = 1; page <= ViewBag.TotalPages; page++)
+                {
+                    if (page == ViewBag.CurrentPage)
+                    {
+                        <li class="page-item active"><span class="page-link">@page</span></li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a href="@Url.Action("TimKiem_64130773", new { page = page, maSV = Request["maSV"], hoTen = Request["hoTen"] })" class="page-link">@page</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </nav>
+    }
+</div>

@@ -1,0 +1,142 @@
+﻿@model IEnumerable<KT0720HoXuanHung_64130773.Models.SINHVIEN>
+
+@{
+    ViewBag.Title = "Danh Sách Sinh Viên";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center min-vh-100" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+    <div class="container text-center p-5 rounded-lg shadow-lg" style="background: rgba(255, 255, 255, 0.85);">
+
+        <h2 class="text-light fw-bold mb-4" style="background: linear-gradient(to right, #ff7eb3, #ff758c); -webkit-background-clip: text; color: transparent;">Danh Sách Sinh Viên</h2>
+
+        <p>
+            <a href="@Url.Action("Create")" class="btn-create btn btn-lg">Tạo mới</a>
+        </p>
+
+        <!-- Bảng danh sách sinh viên -->
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>@Html.DisplayNameFor(model => model.First().MaSV)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().HoSV)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().TenSV)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().NgaySinh)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().GioiTinh)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().AnhSV)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().DiaChi)</th>
+                    <th>@Html.DisplayNameFor(model => model.First().MaLop)</th>
+                    <th>Chức năng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.MaSV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.HoSV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TenSV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                        <td>@(item.GioiTinh ? "Nam" : "Nữ")</td>
+                        <td>@Html.DisplayFor(modelItem => item.AnhSV)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DiaChi)</td>
+                        <td>@Html.DisplayFor(modelItem => item.MaLop)</td>
+                        <td>
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSV }, new { @class = "btn btn-info btn-sm" }) |
+                            @Html.ActionLink("Xoá", "Delete", new { id = item.MaSV }, new { @class = "btn btn-danger btn-sm" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Phân trang -->
+        <div class="pagination-container">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <a href="@Url.Action("Index", new { page = 1 })" class="btn btn-light">Đầu</a>
+                <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })" class="btn btn-light">Trước</a>
+            }
+
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })" class="btn btn-light">Tiếp</a>
+                <a href="@Url.Action("Index", new { page = ViewBag.TotalPages })" class="btn btn-light">Cuối</a>
+            }
+
+            <p>Đang là trang @ViewBag.CurrentPage/@ViewBag.TotalPages</p>
+        </div>
+
+    </div>
+</div>
+
+<!-- Thêm hiệu ứng trang trí -->
+<style>
+    /* Các hiệu ứng như trước đây bạn đã thêm */
+    body {
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        background: linear-gradient(to right, #ff7eb3, #ff758c);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    table.table-hover tbody tr:hover {
+        background-color: #f1f1f1;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn {
+        transition: background-color 0.3s, transform 0.3s;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+            background-color: #ff5c8d;
+        }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 0.875rem;
+    }
+
+    .btn-warning:hover {
+        background-color: #f0ad4e;
+    }
+
+    .btn-info:hover {
+        background-color: #5bc0de;}
+    }
+
+    .btn-danger:hover {
+        background-color: #d9534f;
+    }
+
+    .img-thumbnail {
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .pagination-container {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+        .pagination-container a {
+            margin: 0 5px;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+            .pagination-container a:hover {
+                background-color: #0056b3;
+            }
+</style>
